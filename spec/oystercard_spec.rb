@@ -46,7 +46,7 @@ describe Oystercard do
     it 'sets the entry station' do
       card.top_up(Oystercard::MAXIMUM_BALANCE)
       card.touch_in(entry_station)
-      expect(card.journey_history[-1][:entry_station]).to eq entry_station
+      expect(card.journey_history.last[:entry_station]).to eq entry_station
     end
   end
 
@@ -68,11 +68,10 @@ describe Oystercard do
 
     it 'sets exit station' do
       card.touch_out(exit_station)
-      expect(card.journey_history[-1][:exit_station]).to eq exit_station
+      expect(card.journey_history.last[:exit_station]).to eq exit_station
     end
 
     it 'created a new entry in the journey_history hash including the entry and exit stations' do
-
       card.touch_out(exit_station)
       expect(card.journey_history).to include journey
     end
