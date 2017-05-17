@@ -23,16 +23,18 @@ class Oystercard
   def touch_in(station)
     fail "Error: You need to top up" if @balance < MINIMUM_BALANCE
     @journey_history.push(@journey)
+    @journey.update_entry_station(station)
   end
 
   def touch_out(station)
     deduct(MINIMUM_FARE)
-    @journey_history.last[:exit_station] = station
+    @journey_history.last.update_exit_station(station)
+    @journey = Journey.new
   end
 
   def in_journey?
-    return false if journey_history.empty?
-    @journey_history.last[:exit_station].nil?
+    return false  if @journey_history.empty?
+    !!@journey_history.last.entry_station && !@journey_history.last.exit_station
   end
 
   private
