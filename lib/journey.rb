@@ -1,4 +1,6 @@
 class Journey
+  MINIMUM_FARE = 1
+  PENALTY_FARE = 6
   attr_reader :entry_station, :exit_station
 
   def initialize
@@ -19,6 +21,7 @@ class Journey
   end
 
   def fare
-    return Oystercard::MINIMUM_FARE if !!@entry_station && !!@exit_station
+    return MINIMUM_FARE unless in_journey?
+    PENALTY_FARE
   end
 end

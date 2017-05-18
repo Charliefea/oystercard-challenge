@@ -32,9 +32,10 @@ describe Oystercard do
   end
 
   describe '#touch_in' do
-    let(:journey) {double(:journey)}
+    let(:journey) { double(:journey) }
+
     it 'prevents touching in if balance is below the minimum balance' do
-      expect{ card.touch_in(entry_station) }.to raise_error "Error: You need to top up"
+      expect { card.touch_in(entry_station) }.to raise_error "Error: You need to top up"
     end
 
     it 'checks that the Journey History array is updated' do
@@ -44,17 +45,20 @@ describe Oystercard do
       card.touch_in(entry_station)
       expect(card.journey_history.last).to eq journey
     end
+
+    it 'should charge penalty fare if previous journey was not complete' do
+      card.top_up(10)
+      card.touch_in(entry_station)
+      card.touch_in(entry_station)
+      expect(card.balance).to eq 4
+    end
   end
 
   describe '#touch_out' do
 
-    before do
-      card.top_up(Oystercard::MAXIMUM_BALANCE)
-      card.touch_in(entry_station)
-    end
-
-    it 'deducts minimum fare' do
-      expect{ card.touch_out(exit_station) }.to change{ card.balance }.by -Oystercard::MINIMUM_FARE
+    it 'should charge penalty fare if previous journey was not complete' do
+      card.top_up(10)
+      card.touch_out(exit_station)
     end
   end
 end

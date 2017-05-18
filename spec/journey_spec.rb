@@ -29,12 +29,15 @@ describe Journey do
     it 'returns the minimum fare'do
       journey.update_entry_station(:paddington)
       journey.update_exit_station(:kings_cross)
-      expect(journey.fare).to eq Oystercard::MINIMUM_FARE
+      expect(journey.fare).to eq Journey::MINIMUM_FARE
     end
-    it 'returns a penalty fare' do
-      pending('looking at refactoring test')
+    it 'returns a penalty fare if forgot to touch_out' do
       journey.update_entry_station(:paddington)
-      expect(journey.fare).to eq Oystercard::PENALTY_FARE
+      expect(journey.fare).to eq Journey::PENALTY_FARE
+    end
+    it 'returns a penalty fare if forgot to touch_in' do
+      journey.update_exit_station(:paddington)
+      expect(journey.fare).to eq Journey::PENALTY_FARE
     end
   end
 
