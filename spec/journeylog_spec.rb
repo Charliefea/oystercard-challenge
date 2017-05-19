@@ -15,7 +15,13 @@ describe JourneyLog do
       journeylog2.start(entry_station)
       expect(journeylog2.journey_history.last).to eq journey
     end
-
-
+end
+  describe '#end' do
+    it 'checks that if Journey History is empty that a new instance of journey is added' do
+      journeylog2 = JourneyLog.new(journey)
+      allow(journey).to receive(:update_exit_station)
+      journeylog2.end(exit_station)
+      expect(journeylog2.journey_history.last).to eq journey
+    end
   end
 end

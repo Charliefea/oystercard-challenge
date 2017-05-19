@@ -28,11 +28,12 @@ class Oystercard
   end
 
   def touch_out(station)
-    if @journey_history.empty? || @journey_history.last.in_journey?
-      deduct(@journey.fare)
+    if @journey_history.empty? || !@journey_history.last.in_journey?
       @journey_history << @journey
     end
     @journey_history.last.update_exit_station(station)
+    deduct(@journey_history.last.fare)
+
   end
 
   private
