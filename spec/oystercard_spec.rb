@@ -5,10 +5,12 @@ describe Oystercard do
   subject(:card) { Oystercard.new }
   let(:entry_station) { double(:entry_station) }
   let(:exit_station) { double(:exit_station) }
+  let(:journey_log) { double(:journey_log) }
 
   describe 'default' do
-    it 'expect an empty list of journeys on initialization' do
-      expect(card.journey_history).to be_empty
+    it 'expect an new instance of JourneyLog on initialization' do
+      card1 = Oystercard.new(journey_log)
+      expect(card1.journey_log).to eq journey_log
     end
   end
 
@@ -38,14 +40,6 @@ describe Oystercard do
       expect { card.touch_in(entry_station) }.to raise_error "Error: You need to top up"
     end
 
-    it 'checks that the Journey History array is updated' do
-      card = Oystercard.new(journey)
-      card.top_up(Oystercard::MAXIMUM_BALANCE)
-      allow(journey).to receive(:update_entry_station)
-      card.touch_in(entry_station)
-      expect(card.journey_history.last).to eq journey
-    end
-
     it 'should charge penalty fare if previous journey was not complete' do
       card.top_up(10)
       card.touch_in(entry_station)
@@ -55,7 +49,6 @@ describe Oystercard do
   end
 
   describe '#touch_out' do
-
     it 'should charge penalty fare if previous journey was not complete' do
       card.top_up(10)
       card.touch_out(exit_station)
