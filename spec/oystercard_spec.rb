@@ -37,13 +37,13 @@ describe Oystercard do
     let(:journey) { double(:journey) }
 
     it 'prevents touching in if balance is below the minimum balance' do
-      expect { card.touch_in(entry_station) }.to raise_error "Error: You need to top up"
+      expect { card.touch_in(entry_station,:zone) }.to raise_error "Error: You need to top up"
     end
 
     it 'should charge penalty fare if previous journey was not complete' do
       card.top_up(10)
-      card.touch_in(entry_station)
-      card.touch_in(entry_station)
+      card.touch_in(entry_station,:zone)
+      card.touch_in(entry_station,:zone)
       expect(card.balance).to eq 4
     end
   end
