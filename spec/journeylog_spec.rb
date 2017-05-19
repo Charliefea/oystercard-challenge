@@ -13,7 +13,7 @@ describe JourneyLog do
       journeylog2 = JourneyLog.new(journey)
       allow(journey).to receive(:update_entry_station)
       journeylog2.start(entry_station)
-      expect(journeylog2.journey_history.last).to eq journey
+      expect(journeylog2.current_journey).to eq journey
     end
   end
   describe '#finish' do
@@ -21,15 +21,7 @@ describe JourneyLog do
       journeylog2 = JourneyLog.new(journey)
       allow(journey).to receive(:update_exit_station)
       journeylog2.finish(exit_station)
-      expect(journeylog2.journey_history.last).to eq journey
+      expect(journeylog2.current_journey).to eq journey
     end
   end
-
-  # describe '#current_journey' do
-  #   it 'returns a journey' do
-  #     journey_log =  JourneyLog.new
-  #     expect(journey_log.current_journey)
-  #   end
-  # end
-
 end

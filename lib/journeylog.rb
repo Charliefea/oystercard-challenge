@@ -1,7 +1,7 @@
 
 class JourneyLog
 
-  attr_reader :current_journey, :journey_history
+  attr_reader :current_journey
 
   def initialize(journey = Journey.new)
     @journey_history =[]
@@ -25,4 +25,9 @@ class JourneyLog
     return @journey_history.last if !@journey_history.empty?
     nil
   end
+
+  def journey_history_print
+     @journey_history.each {|journey| puts "#{journey.entry_station} to #{journey.exit_station}" } 
+  end
+
 end
