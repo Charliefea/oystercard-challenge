@@ -24,12 +24,12 @@ class Oystercard
     fail "Error: You need to top up" if @balance < MINIMUM_BALANCE
     deduct(@journey_log.current_journey.fare) if !@journey_log.current_journey.nil? && @journey_log.current_journey.in_journey?
     @entry_station = Station.new(station, zone)
-    @journey_log.start(station)
+    @journey_log.start(@entry_station)
   end
 
   def touch_out(station,zone)
     @entry_station = Station.new(station, zone)
-    @journey_log.finish(station)
+    @journey_log.finish(@entry_station)
     deduct(@journey_log.current_journey.fare)
   end
 

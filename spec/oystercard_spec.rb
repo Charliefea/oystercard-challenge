@@ -51,7 +51,7 @@ describe Oystercard do
   describe '#touch_out' do
     it 'should charge penalty fare if previous journey was not complete' do
       card.top_up(10)
-      card.touch_out(exit_station)
+      card.touch_out(exit_station, :zone)
     end
   end
 end

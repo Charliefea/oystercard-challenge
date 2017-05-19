@@ -26,11 +26,6 @@ describe Journey do
   end
 
   describe '#fare' do
-    it 'returns the minimum fare'do
-      journey.update_entry_station(:paddington)
-      journey.update_exit_station(:kings_cross)
-      expect(journey.fare).to eq Journey::MINIMUM_FARE
-    end
     it 'returns a penalty fare' do
       journey.update_entry_station(:paddington)
       expect(journey.fare).to eq Journey::PENALTY_FARE

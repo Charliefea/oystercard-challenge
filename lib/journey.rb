@@ -22,7 +22,7 @@ class Journey
   end
 
   def fare
-    return MINIMUM_FARE unless in_journey?
-    PENALTY_FARE
+    return PENALTY_FARE if in_journey?
+    (entry_station.zone - exit_station.zone).abs + 1
   end
 end

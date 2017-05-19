@@ -27,7 +27,7 @@ class JourneyLog
   end
 
   def journey_history_print
-     @journey_history.each {|journey| puts "#{journey.entry_station} to #{journey.exit_station}" } 
+     @journey_history.each {|journey| puts "#{journey.entry_station.name} (zone #{journey.entry_station.zone}) to (#{journey.exit_station.name} zone #{journey.exit_station.zone})" }
   end
 
 end
