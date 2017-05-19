@@ -21,5 +21,9 @@ class JourneyLog
     @journey_history.last.update_exit_station(exit_station)
   end
 
+  def current_journey
+    return journey_history.last if journey_history.last.in_journey?
+  end
+
 
 end

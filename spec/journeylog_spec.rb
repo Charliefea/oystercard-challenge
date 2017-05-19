@@ -25,5 +25,11 @@ describe JourneyLog do
     end
   end
 
+  # describe '#current_journey' do
+  #   it 'returns a journey' do
+  #     journey_log =  JourneyLog.new
+  #     expect(journey_log.current_journey)
+  #   end
+  # end
 
 end
